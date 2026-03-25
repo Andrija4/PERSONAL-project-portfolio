@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- UPDATE: Change this title for each project -->
+  <title>Project Name — Andrija Ilic</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+  <div class="site-wrapper">
+
+    <!-- ── Navigation ── -->
+    <nav>
+      <div class="nav-logo">andrija<span>.</span>ilic</div>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../projects.html" class="active">Projects</a></li>
+        <li><a href="../experience.html">Experience</a></li>
+        <li><a href="../techstack.html">Tech Stack</a></li>
+      </ul>
+    </nav>
+
+    <!-- ── Page Header ── -->
+    <header class="page-header fade-up">
+      <a href="../projects.html" class="page-back">← Back to Projects</a>
+
+      <!-- UPDATE: Project title, category tag, and description -->
+      <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.6rem;">
+        <h1 class="page-title" style="margin-bottom:0;">Controlling robotic arm via EMG signals</h1>
+        <span class="tag tag-accent">Robotics</span>
+        <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--ink-dim);">2024</span>
+      </div>
+
+      <p class="page-subtitle">
+        This project was developed during the course of “Introduction of Robotics” and was latter upgraded for 
+        the purpose of graduation thesis.The goal of this project was to conclude if it was possible to make 
+        functional robotic arm that is manipulated via EMG signals in real time. This thesis could latter prove 
+        beneficial in developing similar systems that could be used for variety of purposes (Factories, Medicine, Military etc.).
+      </p>
+
+      <!-- Tags row -->
+      <div class="card-tags" style="margin-top:1rem;">
+        <span class="tag">Poppy Ergo Jr</span>
+        <span class="tag">Python 3.13</span>
+        <span class="tag">OpenBCI</span>
+        <span class="tag">Raspberry Pi 3 Model B v1.2</span>
+        <span class="tag">BLE</span>
+        <span class="tag">Linux</span>
+        <!-- Add your actual tech tags here -->
+      </div>
+
+      <!-- Optional: link to GitHub or live demo -->
+      
+      <div style="margin-top:1.25rem; display:flex; gap:0.75rem;">
+        <a href="https://github.com/yourusername/repo" target="_blank" class="btn btn-primary">
+          View on GitHub
+        </a>
+      </div>
+      
+    </header>
+
+
+    <!-- ══════════════════════════════════════════════════════
+         MEDIA SECTION
+         Each .media-item holds one piece of media + caption.
+         Supported: images, videos, iframes (YouTube embed).
+         ══════════════════════════════════════════════════════ -->
+    
+    <div>
+    <h2>System Workflow</h2>
+    <p>1. Generating input (EMG): First step of realizing this project was making sure that valid input can be generated 
+    using 1 hand. This was quite a challenge but after several tries I managed to extract 4 separate signals from 1 hand. 
+    This signals are read and filtered through python script.</p>
+    </div>
+
+    <div class="media-grid pb-lg fade-up">
+
+      <!-- ── Image ── -->
+      <div class="media-item">
+        <!-- Replace with your actual image path -->
+        <img
+          class="media-thumb"
+          src="assets/screenshot-placeholder.png"
+          alt="Screenshot description"
+          loading="lazy"
+        />
+        <!--
+          If you don't have an image yet, use the placeholder div below instead:
+          <div class="media-thumb-placeholder">screenshot coming soon</div>
+        -->
+        <div class="media-caption">
+          <strong>What this shows</strong>
+          Explanation of what's visible in the screenshot — the context, what was
+          happening, and why it matters.
+        </div>
+      </div>
+
+      <!-- ── Image ── -->
+      <div class="media-item">
+        <!-- Replace with your actual image path -->
+        <img
+          class="media-thumb"
+          src="assets/screenshot-placeholder.png"
+          alt="Screenshot description"
+          loading="lazy"
+        />
+        <!--
+          If you don't have an image yet, use the placeholder div below instead:
+          <div class="media-thumb-placeholder">screenshot coming soon</div>
+        -->
+        <div class="media-caption">
+          <strong>What this shows</strong>
+          Explanation of what's visible in the screenshot — the context, what was
+          happening, and why it matters.
+        </div>
+      </div>
+            
+
+      <!-- ── Image Placeholder (remove when you have a real image) ── -->
+      <div class="media-item">
+        <div class="media-thumb-placeholder">screenshot coming soon</div>
+        <div class="media-caption">
+          <strong>Another View</strong>
+          Description of what this screenshot will show once added.
+        </div>
+      </div>
+
+      <!-- ── Local Video ── -->
+      <!--
+      <div class="media-item">
+        <div class="media-video-wrap">
+          <video controls preload="metadata">
+            <source src="assets/demo.mp4" type="video/mp4" />
+            Your browser does not support video.
+          </video>
+        </div>
+        <div class="media-caption">
+          <strong>Demo video</strong>
+          Walk-through of the system in action — what you're seeing and the key
+          moments to pay attention to.
+        </div>
+      </div>
+      -->
+
+      <!-- ── YouTube / Embed Video ── -->
+      <!--
+      <div class="media-item">
+        <div class="media-video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+            title="Project demo"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div class="media-caption">
+          <strong>Video title</strong>
+          What the viewer is about to watch and why it's relevant.
+        </div>
+      </div>
+      -->
+
+      <!--
+        ─── HOW TO ADD MEDIA ───────────────────────────────────────
+        Images:
+          - Place your file in /assets/
+          - Use <img class="media-thumb" src="assets/yourfile.png" />
+
+        Local Video:
+          - Place .mp4 in /assets/
+          - Uncomment the Local Video block above
+
+        YouTube:
+          - Get your video ID from the URL (youtube.com/watch?v=THIS_PART)
+          - Uncomment the Embed block and paste your ID
+        ─────────────────────────────────────────────────────────── -->
+
+    </div>
+
+    <!-- ── Footer ── -->
+    <footer>
+      <div class="footer-copy">© 2026 Andrija Ilic</div>
+      <div class="footer-links">
+        <a href="https://github.com/" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/" target="_blank">LinkedIn</a>
+        <a href="mailto:your@email.com">Email</a>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>
