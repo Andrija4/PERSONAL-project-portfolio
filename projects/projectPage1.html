@@ -30,7 +30,7 @@
       <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.6rem;">
         <h1 class="page-title" style="margin-bottom:0;">Controlling robotic arm via EMG signals</h1>
         <span class="tag tag-accent">Robotics</span>
-        <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--ink-dim);">2024</span>
+        <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--ink-dim);">2025</span>
       </div>
 
       <p class="page-subtitle">
@@ -48,10 +48,7 @@
         <span class="tag">Raspberry Pi 3 Model B v1.2</span>
         <span class="tag">BLE</span>
         <span class="tag">Linux</span>
-        <!-- Add your actual tech tags here -->
       </div>
-
-      <!-- Optional: link to GitHub or live demo -->
       
       <div style="margin-top:1.25rem; display:flex; gap:0.75rem;">
         <a href="https://github.com/yourusername/repo" target="_blank" class="btn btn-primary">
@@ -69,65 +66,172 @@
          ══════════════════════════════════════════════════════ -->
     
     <div>
+
     <h2>System Workflow</h2>
-    <p>1. Generating input (EMG): First step of realizing this project was making sure that valid input can be generated 
+    <br>
+    <h4>Generating input (EMG): <br>First step of realizing this project was making sure that valid input can be generated 
     using 1 hand. This was quite a challenge but after several tries I managed to extract 4 separate signals from 1 hand. 
-    This signals are read and filtered through python script.</p>
+    This signals are read and filtered through python script.</h4>
+    <br>
+    <h4>Defining movement: <br>After finding the minimum and maximum value of generated signals, the median value was taken 
+    as a limit for the robot to react. To achieve reaction robot has to receive at least 5 sequential instructions with value
+    above the limit. Same goes for returning to its base position. Because of disturbed input signals (mostly due to noise
+    that affected BCI board), I was unable to generate realistic movement of the hand, so the decision was to make only 5
+    positions that Ergo Jr could achieve</h4>
+    <br>
+    <h4>Runing the script: <br>To eliminate delay, BLE dongle from openBCI was connected directly into the Ergo Jr. The script
+    is reading signal data using scipy, brainflow and numpy libraries, and based on the input giving commands to the robotic
+    hand using pypoy library</h4>
+    <br>
+    <h2>Key Implementation Details</h2>
+    <br>
+    <h4>•	The communication between Robotic Hand and OpenBCI operates directly to ensure data receive in real time</h4><br>
+    <h4>•	Script consists of functions that are operating the Robotic Hand and Receiving EMG signals</h4><br>
+    <h4>•	Scalable project, meaning there is a lot of space for improving the functionality of system</h4><br>
+    <br>
+    <h2>Challenges & Solutions</h2>
+    <br>
+    <h4>•	Challenge: <br>- Received signals from OpenBCI were disturbed by white noise and other factors 
+    (power plugs, other devices in near the board).</h4>
+    <h4>•	Solution: <br>- I implemented several filters to negotiate noise such as: Notch Filter, Bandpass Filter and Smoothing</h4><br>
+    <h4>•	Challenge: <br>- Connecting the OpenBCI board directly to the robotic hand</h4>
+    <h4>•	Solution: <br>- Firstly, I installed BrainFlow v5.21.0 (default via pip), but it wasnt supported on Python 3.7 on the 
+    Raspberry Pi. After uninstalling, I tried v5.1.0 and got a “wrong ELF class: ELFCLASS64” error, meaning the files were 
+    incompatible with the OS. Although Raspberry Pi 3B has a 64-bit processor, Poppy Ergo Jr runs a 32-bit OS (Debian Buster),
+    so 64-bit binaries wont work. I then tested v4.6.0 but encountered the same issue. Trying to force 32-bit kernel mode 
+    (arm_64bit=0 in /boot/config.txt) didnt help. The root problem is that PyPI doesnt provide a 32-bit ARM build of BrainFlow,
+    likely because 32-bit OS support was dropped. The Python script is 32-bit, while libBoardController.so is 64-bit, so 
+    they are incompatible. The final solution was to download the BrainFlow C++ source, compile it directly on the Raspberry Pi, 
+    and manually integrate it into the Python environment.</h4>
+    <pre class="cmd-text">
+    sudo apt-get install cmake build-essential git
+    cd ~/Desktop
+    git clone --branch 4.6.0 https://github.com/brainflow-dev/brainflow.git
+    cd brainflow
+    mkdir build
+    cd build
+    cmake ..
+    make -j2 (Using only 2/4 cores so raspberry doesn't run out of memmory)
+    cp ../compiled/*.so /home/poppy/pyenv/lib/python3.7/site-packages/brainflow/lib/
+    </pre><br>
+    <h4>•	Challenge: <br>Raspberry Pi port getting occupied</h4>
+    <h4>•	Solution: <br>- This problem was resolved by killing the process using the port using this command: <br></h4>
+    <pre class="cmd-text">
+    sudo fuser -k /dev/ttyAMA0
+    </pre>
+    <br>
+    <h2>Visuals & Schematics</h2>
+    
     </div>
 
     <div class="media-grid pb-lg fade-up">
 
-      <!-- ── Image ── -->
       <div class="media-item">
-        <!-- Replace with your actual image path -->
         <img
           class="media-thumb"
-          src="assets/screenshot-placeholder.png"
+          src="../assets/openBci.jpeg"
           alt="Screenshot description"
           loading="lazy"
         />
-        <!--
-          If you don't have an image yet, use the placeholder div below instead:
-          <div class="media-thumb-placeholder">screenshot coming soon</div>
-        -->
         <div class="media-caption">
-          <strong>What this shows</strong>
-          Explanation of what's visible in the screenshot — the context, what was
-          happening, and why it matters.
+          <strong>OpenBCI Ganglion board with electrodes</strong>
         </div>
       </div>
 
-      <!-- ── Image ── -->
       <div class="media-item">
-        <!-- Replace with your actual image path -->
         <img
           class="media-thumb"
-          src="assets/screenshot-placeholder.png"
+          src="../assets/handEmg1.jpeg"
           alt="Screenshot description"
           loading="lazy"
         />
-        <!--
-          If you don't have an image yet, use the placeholder div below instead:
-          <div class="media-thumb-placeholder">screenshot coming soon</div>
-        -->
         <div class="media-caption">
-          <strong>What this shows</strong>
-          Explanation of what's visible in the screenshot — the context, what was
-          happening, and why it matters.
+          <strong>Placement of electrodes on the hand</strong>
+          View 1
+        </div>
+      </div>
+
+      <div class="media-item">
+        <img
+          class="media-thumb"
+          src="../assets/handEmg2.jpeg"
+          alt="Screenshot description"
+          loading="lazy"
+        />
+        <div class="media-caption">
+          <strong>Placement of electrodes on the hand</strong>
+          View 2
+        </div>
+      </div>
+
+      <div class="media-item">
+        <img
+          class="media-thumb"
+          src="../assets/handEmg3.jpeg"
+          alt="Screenshot description"
+          loading="lazy"
+        />
+        <div class="media-caption">
+          <strong>Placement of electrodes on the hand</strong>
+          View 3
+        </div>
+      </div>
+
+      <div class="media-item">
+        <div class="media-video-wrap">
+          <video controls preload="metadata">
+            <source src="../assets/ergoJrVideo.mp4" type="video/mp4" />
+            Your browser does not support video.
+          </video>
+        </div>
+        <div class="media-caption">
+          <strong>Representation of the system in action #1</strong>
+          In this video you can see how the system is working in real time. On the bottom of the screen you can see the values of 
+          4 EMG signals, and on the top you can see the robotic hand. When the value of the signal is above the limit, the hand 
+          is moving to its position, and when the value is below the limit, the hand is returning to its base position.
+        </div>
+      </div>
+
+      <div class="media-item">
+        <div class="media-video-wrap">
+          <video controls preload="metadata">
+            <source src="../assets/ergoJrVideo2.mp4" type="video/mp4" />
+            Your browser does not support video.
+          </video>
+        </div>
+        <div class="media-caption">
+          <strong>Representation of the system in action #2</strong>
+          Here is another video of the system in action, this time with me connecting the electrodes to my hand and controlling
+          the robotic hand in real time.
         </div>
       </div>
             
+    </div>
 
-      <!-- ── Image Placeholder (remove when you have a real image) ── -->
-      <div class="media-item">
-        <div class="media-thumb-placeholder">screenshot coming soon</div>
-        <div class="media-caption">
-          <strong>Another View</strong>
-          Description of what this screenshot will show once added.
-        </div>
+    <div>
+    <h2>Impact</h2>
+    <br>
+    <h4>Although this project is still in its early stages, it has the potential to make a significant impact in the field of 
+      assistive technologies and human-robot interaction. By demonstrating the feasibility of controlling a robotic arm using 
+      EMG signals, this project opens up new possibilities for individuals with mobility impairments to regain functionality 
+      and independence. Additionally, the insights gained from this project can contribute to the development of more advanced 
+      EMG-based control systems, which could be applied in various domains such as rehabilitation, prosthetics, and even 
+      entertainment.</h4>
+    </div>
+
+    <!-- ── Footer ── -->
+    <footer>
+      <div class="footer-copy">© 2026 Andrija Ilic</div>
+      <div class="footer-links">
+        <a href="https://github.com/" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/" target="_blank">LinkedIn</a>
+        <a href="mailto:your@email.com">Email</a>
       </div>
+    </footer>
 
-      <!-- ── Local Video ── -->
+  </div>
+
+<!-- ── Local Video ── -->
       <!--
       <div class="media-item">
         <div class="media-video-wrap">
@@ -178,19 +282,15 @@
           - Uncomment the Embed block and paste your ID
         ─────────────────────────────────────────────────────────── -->
 
-    </div>
-
-    <!-- ── Footer ── -->
-    <footer>
-      <div class="footer-copy">© 2026 Andrija Ilic</div>
-      <div class="footer-links">
-        <a href="https://github.com/" target="_blank">GitHub</a>
-        <a href="https://linkedin.com/" target="_blank">LinkedIn</a>
-        <a href="mailto:your@email.com">Email</a>
+        <!-- ── Image Placeholder (remove when you have a real image) ── 
+      <div class="media-item">
+        <div class="media-thumb-placeholder">screenshot coming soon</div>
+        <div class="media-caption">
+          <strong>Another View</strong>
+          Description of what this screenshot will show once added.
+        </div>
       </div>
-    </footer>
-
-  </div>
+      -->
 
 </body>
 </html>

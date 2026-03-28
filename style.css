@@ -348,6 +348,17 @@ nav {
 
 .card-link:hover { gap: 0.55rem; }
 
+.cmd-text {
+  background-color: #0c0c0c;
+  color: #00ff00;
+  font-family: 'Courier New', 'Lucida Console', monospace;
+  padding: 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
 /* ── Grid Layouts ── */
 .grid-2 {
   display: grid;
@@ -479,8 +490,9 @@ nav {
 }
 
 .media-thumb {
+  max-width: 100%;
   width: 100%;
-  aspect-ratio: 16/9;
+  height: auto;
   object-fit: cover;
   border-radius: var(--r);
   border: 1px solid var(--border);
