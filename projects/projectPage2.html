@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- UPDATE: Change this title for each project -->
   <title>Project Name — Andrija Ilic</title>
   <link rel="stylesheet" href="../style.css" />
 </head>
@@ -26,7 +25,6 @@
     <header class="page-header fade-up">
       <a href="../projects.html" class="page-back">← Back to Projects</a>
 
-      <!-- UPDATE: Project title, category tag, and description -->
       <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.6rem;">
         <h1 class="page-title" style="margin-bottom:0;">Application for automating electrical testing</h1>
         <span class="tag tag-accent">Automation</span>
@@ -60,50 +58,167 @@
       </div>
       
       <div style="margin-top:1.25rem; display:flex; gap:0.75rem;">
-        <a href="https://github.com/yourusername/repo" target="_blank" class="btn btn-primary">
+        <a href="https://github.com/Andrija4/BROSE-automation-testing-platform-lite" target="_blank" class="btn btn-primary">
           View on GitHub
         </a>
       </div>
       
     </header>
 
-
-    <!-- ══════════════════════════════════════════════════════
-         MEDIA SECTION
-         Each .media-item holds one piece of media + caption.
-         Supported: images, videos, iframes (YouTube embed).
-         ══════════════════════════════════════════════════════ -->
-    
     <div>
 
     <h2>System Workflow</h2>
     <br>
-    <h4></h4>
+    <h4><u>Ingestion</u>: <br>Users operate with application via PyQt6 UI where he will come across instructions list, instructions 
+      sequence, instruction information and console output. <br>There are 2 ways of creating instruction sequence, first one by selecting
+      instruction from the instructions list where user will be able to build his own instruction sequence, and second one by loading
+      the instruction sequence stored in .json format (if it exists localy).<br>
+      Every single instruction group has its own class (which are subclass of BaseInstruction class), its own interface, validation 
+      and execution processes.
+    </h4>
     <br>
+    <h4><u>Validation</u>: <br>When instruction sequence has been created, the next step is validation. Automation module, which is
+      delegated to handle the workflow of iteration threw instructions, validates all of the instructions inside the instruction list.
+      If for example, equipment is not connected to the PC or some instruction do not pass validation script, it does not let user
+      continue with execution.
+    </h4>
+    <br>
+    <h4><u>Execution</u>: <br>After it has been validated that all of the instructions are valid, user can proceed with execution of 
+      instruction sequence. Automation module communicates with Interface module, which role is to communicate with other interfaces,
+      and sends it instruction by instruction. Those instructions are then, after filtering through corresponding interfaces, being
+      handled by compatible processes.
+    </h4>
+    <br>
+    <h4><u>Finish and Cleanup</u>: <br>As the last instruction passes through this process, system sends signal that the operation has
+      been finished and Automation module “cleans up” sequence, making itself ready for next validation and execution process.
+    </h4>
+    <br>
+    <h2>Key Implementation Details</h2>
+    <br>
+    <h4>•	The application has been developed so it can be modular at easily adopted based on the needs of users.</h4><br>
+    <h4>•	At the start and end of the execution, mailing system send chosen users mail about applications status.</h4><br>
+    <h4>•	Logging has been implemented in almost every single segment of applications workflow, so developers can easily detect problem 
+      if bug appears.</h4><br>
+    <h4>•	Code is appropriately commented so that other developers can easily understand critical parts of the project.</h4><br>
+    <br>
+    <h2>Challenges & Solutions</h2>
+    <br>
+    <h4>•	<u>Challenge</u>: <br>- While implementing communication with specific signal generator device, I noticed that they had support 
+      for no older version than Python 3.9 and application was developed in Python 3.12.</h4>
+    <h4>•	<u>Solution</u>: <br>- I created a microservice that communicated with Python 3.9 script using FastAPI, which was the best 
+      possible workaround at the moment.</h4><br>
+    <h4>•	<u>Challenge</u>: <br>- While working on LIN communication feature, the current device that was used did not have any kind of 
+      support for python development.</h4>
+    <h4>•	<u>Solution</u>: <br>- USBLini. Cheaper opensource alternative that was a perfect fit for this purpose. By analyzing how LIN devices 
+      worked, I recreated signals and was able to completely bypass this problem: <a href="https://www.fischl.de/usblini/">https://www.fischl.de/usblini/</a></h4><br>
     <h2>Visuals & Schematics</h2>
     
     </div>
 
     <div class="media-grid pb-lg fade-up">
 
-      <!-- <div class="media-item">
+      <div class="media-item">
         <img
           class="media-thumb"
-          src="../assets/openBci.jpeg"
+          src="../assets/AAPhoto1.png"
           alt="Screenshot description"
           loading="lazy"
         />
         <div class="media-caption">
-          <strong>OpenBCI Ganglion board with electrodes</strong>
+          <strong>Automation App start screen</strong>
+          On the left side, there is instruction list, in the middle instruction sequence and on the right side, there is instruction 
+          information and console output.
         </div>
-      </div> -->
+      </div>
+
+      <div class="media-item">
+        <img
+          class="media-thumb"
+          src="../assets/AAPhoto2.png"
+          alt="Screenshot description"
+          loading="lazy"
+        />
+        <div class="media-caption">
+          <strong>Instruction editor window - Speed Control Device</strong>
+          This is the window where user can edit instruction parameters. In this case, user is editing parameters for speed control device.
+        </div>
+      </div>
+
+      <div class="media-item">
+        <img
+          class="media-thumb"
+          src="../assets/AAPhoto3.png"
+          alt="Screenshot description"
+          loading="lazy"
+        />
+        <div class="media-caption">
+          <strong>Instruction editor window - Signal generator device</strong>
+          Here is another example of instruction editor window, but this time for signal generator device. As you can see, parameters are different
+        </div>
+      </div>
+
+      <div class="media-item">
+        <img
+          class="media-thumb"
+          src="../assets/AAPhoto4.png"
+          alt="Screenshot description"
+          loading="lazy"
+        />
+        <div class="media-caption">
+          <strong>Complex instruction dialog</strong>
+          This dialog is used for creating complex instructions, which are basicaly combinations of multiple instructions.
+        </div>
+      </div>
+
+      <div class="media-item">
+        <img
+          class="media-thumb"
+          src="../assets/AAPhoto5.png"
+          alt="Screenshot description"
+          loading="lazy"
+        />
+        <div class="media-caption">
+          <strong>Mails recieved through app</strong>
+          This is an example of mail that user receives when execution starts and finishes. It contains information about the status of execution and
+          in case of failure, it contains information about the error that caused it.
+        </div>
+      </div>
+
+      <div class="media-item">
+        <video autoplay loop muted playsinline>
+          <source src="../assets/AAvideo.mp4" type="video/mp4">
+        </video>
+        <div class="media-caption">
+          <strong>Video presentation of app's functionality</strong>
+          In this video user is saving created instruction sequence consisted of time instructions, loading it, validating it and executing it. 
+          Also you can see uppon starting the sequence mailing dialog oppens up where user can choose who will receive mail about status of execution.
+        </div>
+      </div>
+
+      <div class="media-item">
+        <img
+          class="media-thumb"
+          src="../assets/UsbLini1.jpeg"
+          alt="Screenshot description"
+          loading="lazy"
+        />
+        <div class="media-caption">
+          <strong>USBLini</strong>
+          Device used for LIN communication
+        </div>
+      </div>
             
     </div>
 
     <div>
     <h2>Impact</h2>
     <br>
-    <h4></h4>
+    <h3>•	Saved approximately 18 hours of manual work per week.</h3>
+    <h3>•	Reduced human error rate by significant percent.</h3>
+    <h3>•	Eliminated the need of using standard LIN communication devices for electrical testing, which 
+      company was paying over 6,000€ per year (each).</h3>
+    <h3>•	Increased testing capacity by 70%, which led to huge saving in terms of external laboratories.</h3>
+    <h3>•	While working on this project, I stubbled uppon security vulnerabilities for which I recieved a reward after reporting it.</h3>
     </div>
 
     <!-- ── Footer ── -->
