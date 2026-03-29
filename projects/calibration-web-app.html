@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Name — Andrija Ilic</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+  <div class="site-wrapper">
+
+    <!-- ── Navigation ── -->
+    <nav>
+      <div class="nav-logo">andrija<span>.</span>ilic</div>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../projects.html" class="active">Projects</a></li>
+        <li><a href="../experience.html">Experience</a></li>
+        <li><a href="../techstack.html">Tech Stack</a></li>
+      </ul>
+    </nav>
+
+    <!-- ── Page Header ── -->
+    <header class="page-header fade-up">
+      <a href="../projects.html" class="page-back">← Back to Projects</a>
+
+      <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.6rem;">
+        <h1 class="page-title" style="margin-bottom:0;">Web Service for tracking equipment calibration dates</h1>
+        <span class="tag tag-accent">Web Development</span>
+        <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--ink-dim);">2026</span>
+      </div>
+
+      <p class="page-subtitle">
+        The Brose employees had to keep track of equipments calibration date so they could send it for calibration on time. 
+        The problem is that due to dynamical working environment often time this task was overlooked.
+        Idea for solution to this problem was making web service that would notify employees if equipment was ready for calibration.
+
+      </p>
+
+      <!-- Tags row -->
+      <div class="card-tags" style="margin-top:1rem;">
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">HTMX</span>
+        <span class="tag">Jinja2</span>
+        <span class="tag">SQLAlchemy</span>
+        <span class="tag">SQLite</span>
+        <span class="tag">Python 3.12</span>
+      </div>
+      
+      <div style="margin-top:1.25rem; display:flex; gap:0.75rem;">
+        <a href="https://github.com/Andrija4/BROSE-equipment-calibration-tracker" target="_blank" class="btn btn-primary">
+          View on GitHub
+        </a>
+      </div>
+      
+    </header>
+    
+    <div>
+
+      <h2>System Architecture</h2>
+      <br>
+      <h4><u>User interface</u>: <br>I developed GUI using HTMX and Jinja2 html templates so the UX can be intuitive and application easily
+        scalable. User can input equipment's data and add it into the table of available equipment. Table consists of equipment's parameters 
+        and 3 buttons: Calibrate, Delete and Edit.
+        When equipment gets calibrated user can press Calibrate button and the date fields will be updated. Besides that there is mailing 
+        page that allows user to add mail addresses which will receive status of the equipment dates.
+      </h4>
+      <br>
+      <h4><u>Database</u>: <br>Database is implemented using SQLAlchemy and SQLite consisted of 2 tables for equipment and mailing users. <br>
+        All data is stored loccaly</h4>
+      <br>
+      <h4><u>API</u>: <br>For communication between database and service I used FastAPI which I was already familiar with</h4>
+      <br>
+      <h2>Challenges & Solutions</h2>
+      <br>
+      <h4>•	<u>Challenge</u>: <br>- Important feature of the service was possibility of sending mails to the employees as soon as 30 days 
+        are left till calibrations expiring date. </h4>
+      <h4>•	<u>Solution</u>: <br>- For this to be possible I had to implement WebSocket that would track date's status every 5 seconds and 
+        be ready to send mail once it recognizes the date's due.</h4><br>
+      <br>
+      <h2>Visuals & Schematics</h2>
+      
+    </div>
+
+    <!-- Extended class for wide image -->
+    <div class="media-item media-item-wide">
+      <img class="media-thumb" src="../assets/Calibration1.png" alt="..." loading="lazy" />
+      <div class="media-caption">
+          <strong>Content table</strong>
+          Table of all available equipment with their parameters and buttons for managing them. 
+          User can easily add new equipment, edit existing one, delete it or mark it as calibrated.
+      </div>
+    </div>
+
+    <div class="media-grid pb-lg fade-up">
+
+      <div class="media-item">
+        <img
+          class="media-thumb"
+          src="../assets/Calibration3.png"
+          alt="Screenshot description"
+          loading="lazy"
+        />
+        <div class="media-caption">
+          <strong>Edit Equipment</strong>
+          User can edit equipment's parameters by clicking Edit button and changing the data in the form.
+        </div>
+      </div>
+
+      <div class="media-item">
+        <img
+          class="media-thumb"
+          src="../assets/Calibration2.png"
+          alt="Screenshot description"
+          loading="lazy"
+        />
+        <div class="media-caption">
+          <strong>Create Equipment</strong>
+          User can add new equipment by filling out the form and submitting it.
+        </div>
+      </div>
+            
+    </div>
+
+    <div>
+    <h2>Impact</h2>
+    <br>
+    <h4>•	Tracking of calibration for the equipment has become easier than ever.</h4>
+    <h4>•	Task is secured to not get overlooked during the work.</h4>
+    <h4>•	Human error risk reduced to minimal by implementing calibrate button.</h4>
+    <h4>•	Every employee can now access the tracking table.</h4>
+    </div>
+
+    <!-- ── Footer ── -->
+    <footer>
+      <div class="footer-copy">© 2026 Andrija Ilic</div>
+      <div class="footer-links">
+        <a href="https://github.com/Andrija4" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/andrija-ilic-ir/" target="_blank">LinkedIn</a>
+        <a href="mailto:a.ilicc2002@gmail.com">Email</a>
+      </div>
+    </footer>
+
+  </div>
+
+<!-- ── Local Video ── -->
+      <!--
+      <div class="media-item">
+        <div class="media-video-wrap">
+          <video controls preload="metadata">
+            <source src="assets/demo.mp4" type="video/mp4" />
+            Your browser does not support video.
+          </video>
+        </div>
+        <div class="media-caption">
+          <strong>Demo video</strong>
+          Walk-through of the system in action — what you're seeing and the key
+          moments to pay attention to.
+        </div>
+      </div>
+      -->
+
+      <!-- ── YouTube / Embed Video ── -->
+      <!--
+      <div class="media-item">
+        <div class="media-video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+            title="Project demo"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div class="media-caption">
+          <strong>Video title</strong>
+          What the viewer is about to watch and why it's relevant.
+        </div>
+      </div>
+      -->
+
+      <!--
+        ─── HOW TO ADD MEDIA ───────────────────────────────────────
+        Images:
+          - Place your file in /assets/
+          - Use <img class="media-thumb" src="assets/yourfile.png" />
+
+        Local Video:
+          - Place .mp4 in /assets/
+          - Uncomment the Local Video block above
+
+        YouTube:
+          - Get your video ID from the URL (youtube.com/watch?v=THIS_PART)
+          - Uncomment the Embed block and paste your ID
+        ─────────────────────────────────────────────────────────── -->
+
+        <!-- ── Image Placeholder (remove when you have a real image) ── 
+      <div class="media-item">
+        <div class="media-thumb-placeholder">screenshot coming soon</div>
+        <div class="media-caption">
+          <strong>Another View</strong>
+          Description of what this screenshot will show once added.
+        </div>
+      </div>
+      -->
+
+</body>
+</html>

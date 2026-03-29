@@ -489,6 +489,16 @@ nav {
   flex-direction: column;
 }
 
+.media-item-wide {
+  grid-column: span 2;
+}
+
+@media (max-width: 768px) {
+  .media-item-wide {
+    grid-column: span 1;
+  }
+}
+
 .media-thumb {
   max-width: 100%;
   width: 100%;
