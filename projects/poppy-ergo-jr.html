@@ -105,7 +105,13 @@
     make -j2 (Using only 2/4 cores so raspberry doesn't run out of memmory)
     cp ../compiled/*.so /home/poppy/pyenv/lib/python3.7/site-packages/brainflow/lib/
     </pre><br>
-    <h4>•	<u>Challenge</u>: <br>Raspberry Pi port getting occupied</h4>
+    <h4>•	<u>Challenge</u>: <br>- When running script and it hits the line poppy = PoppyErgoJr(), the pypot library asks Linux for 
+      exclusive access to /dev/ttyAMA0 so it can talk to the motors. Linux grants this access and places a "lock" on the port. <br>
+      There are 2 possible reasons for this issue: <br>
+      &emsp; 1. The Zombie Script:Script is force-closed using CTRL+C before it can run a proper cleanup command to release the motors, the Python 
+      process dies, but the "lock" is left behind. Linux still thinks the port is actively being used by the ghost of your crashed script.<br>
+      &emsp; 2. The Poppy Background Service: The Poppy OS often has a built-in web server running in the background that lets you control the robot 
+      via a web browser. Sometimes, this background service wakes up and grabs /dev/ttyAMA0 first.<br></h4>
     <h4>•	<u>Solution</u>: <br>- This problem was resolved by killing the process using the port using this command: <br></h4>
     <pre class="cmd-text">
     sudo fuser -k /dev/ttyAMA0
